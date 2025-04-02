@@ -28,12 +28,11 @@ $app->delete("/alunni/{id}", "AlunniController:deleteOne");
 $app->get("/alunni/{id}/certificazioni", "AlunniController:getAlunnoCert");
 // Visualizzazione di una singola certificazione di uno specifico alunno
 $app->get("/alunni/{id}/certificazioni/{id_cert}", "AlunniController:getOneCert");
-
 // Creazione di una nuova certificazione per un alunno: curl -X POST localhost:8080/alunni/1/certificazioni -d '{"id":"4","alunno_id":"2","titolo":"C++","votazione":"81","ente":"Meucci"}' -H "Content-Type: application/json"
 $app->post("/alunni/{id}/certificazioni", "AlunniController:createCert");
 // Aggiornamento di una specifica certificazione di un singolo alunno curl -X PUT localhost:8080/alunni/2/certificazioni/3 -d '{"titolo":"C#", "votazione":"2", "ente":"LSDV"}' -H "Content-Type: application/json"
 $app->put("/alunni/{id}/certificazioni/{id_cert}", "AlunniController:updateCert");
-// Eliminazione della certificazione di un alunno curl -x DELETE localhost:8080/alunni/2/certificazioni/3 
+// Eliminazione della certificazione di un alunno curl -X DELETE localhost:8080/alunni/2/certificazioni/3 
 $app->delete("/alunni/{id}/certificazioni/{id_cert}", "AlunniController:deleteCert");
 
 
