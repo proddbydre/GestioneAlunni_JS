@@ -70,7 +70,7 @@ class AlunniController
     $c_id = $args['id_cert'];
     $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
     $result = $mysqli_connection->query("SELECT *
-                                         FROM certificazioni c 
+                                         FROM certificazioni  
                                          WHERE alunno_id=$id AND id=$c_id");
     $results = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -86,6 +86,29 @@ class AlunniController
     $mysqli_connection->query($query) or die ('Unable to execute query. '. mysqli_error($query));
     return $response->withStatus(200);
   }
+
+  public function updateCert(Request $request, Response $response, $args){
+    $id = $args['id'];
+    $c_id = $args['id_cert'];
+
+    $body = json_decode($request->getBody());
+    $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
+    $query = "UPDATE certificazioni SET titolo = '$body->titolo', votazione= '$body->votazione', ente = '$body->ente' WHERE alunno_id = $id AND id = $c_id;";
+    $mysqli_connection->query($query) or die ('Unable to execute query. '. mysqli_error($query));
+    return $response->withStatus(200);
+  }
+
+  public function deleteCert(Request $request, Response $response, $args){
+    $id = $args['id'];
+    $c_id = $args['id_cert'];
+
+    $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
+    $mysqli_connection->query("DELETE FROM certificazioni WHERE alunno_id='$id' AND id='$c_id;") or die ('Unable to execute query. '. mysqli_error($query));
+    return $response->withStatus(200);
+  }
+  
+
+
 
 
 
