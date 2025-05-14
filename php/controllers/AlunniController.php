@@ -7,6 +7,8 @@ class AlunniController
   
 
   public function index(Request $request, Response $response, $args){
+    sleep(3);
+
     $queryParams = $request -> getQueryParams();
 
     $search = $queryParams['search'] ?? null;
