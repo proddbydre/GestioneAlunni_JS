@@ -4,10 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class AlunniController
 {
-  
-
   public function index(Request $request, Response $response, $args){
-    sleep(3);
 
     $queryParams = $request -> getQueryParams();
 
@@ -36,7 +33,7 @@ class AlunniController
   public function createOne(Request $request, Response $response, $args){
     $body = json_decode($request->getBody());
     $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
-    $query = "INSERT INTO alunni (nome, cognome, codiceFiscale) VALUES ('$body->nome', '$body->cognome', '$body->codiceFiscale');";
+    $query = "INSERT INTO alunni (nome, cognome) VALUES ('$body->nome', '$body->cognome');";
     $mysqli_connection->query($query) or die ('Unable to execute query. '. mysqli_error($query));
     return $response->withStatus(201);
   }
@@ -45,7 +42,7 @@ class AlunniController
     $id = $args['id'];
     $body = json_decode($request->getBody());
     $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
-    $query = "UPDATE alunni SET nome = '$body->nome', cognome= '$body->cognome', codiceFiscale = '$body->codiceFiscale' WHERE id = $id;";
+    $query = "UPDATE alunni SET nome = '$body->nome', cognome= '$body->cognome' WHERE id = $id;";
     $mysqli_connection->query($query) or die ('Unable to execute query. '. mysqli_error($query));
     return $response->withStatus(200);
   }
